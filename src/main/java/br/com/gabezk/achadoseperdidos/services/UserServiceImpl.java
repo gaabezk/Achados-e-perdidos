@@ -100,6 +100,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public String updateRole(UUID id, Role role) throws ErrorException {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new ErrorException("Usuário com id: " + id + " não existe!"));
@@ -110,6 +111,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public String updatePassword(UUID id, String password) throws ErrorException {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new ErrorException("Usuário com id: " + id + " não existe!"));
@@ -119,6 +121,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public String deleteUser(UUID id) throws ErrorException {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new ErrorException("Usuário com id: " + id + " não existe!"));
