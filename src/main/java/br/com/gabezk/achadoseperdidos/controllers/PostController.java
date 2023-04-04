@@ -39,6 +39,12 @@ public class PostController {
         return ResponseEntity.ok(postService.getAllPostsByStatus(status));
     }
 
+    @GetMapping("/allApproved")
+    @Operation(summary = "Obter todos os posts aprovados", description = "Recupera todos os posts aprovados existentes")
+    public ResponseEntity<List<PostResponseDto>> getAllPostsApproved() {
+        return ResponseEntity.ok(postService.getAllPostsApproved());
+    }
+
     @GetMapping("/allByUserAndStatus")
     @Operation(summary = "Obter posts por usuário e status", description = "Recupera todos os posts existentes criados por um usuário específico e com um status específico")
     public ResponseEntity<List<PostResponseDto>> getAllPostsByUserAndStatus(@Parameter(description = "ID do usuário", required = true) @RequestHeader("Id") UUID userId, @Parameter(description = "Status do post", required = true) @RequestHeader("Status") @Valid PostStatus status) throws ErrorException {

@@ -46,6 +46,10 @@ public class PostServiceImpl implements PostService {
     public List<PostResponseDto> getAllPostsByStatus(PostStatus status) {
         return modelMapper.map(postRepository.findAllByStatus(status), typeToken);
     }
+    @Override
+    public List<PostResponseDto> getAllPostsApproved() {
+        return modelMapper.map(postRepository.findAllByStatus(PostStatus.Approved), typeToken);
+    }
 
     @Override
     public List<PostResponseDto> getAllPostsByUserAndStatus(UUID userId, PostStatus status) throws ErrorException {

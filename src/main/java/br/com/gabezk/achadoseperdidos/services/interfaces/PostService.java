@@ -12,6 +12,7 @@ import java.util.UUID;
 public interface PostService {
     List<PostResponseDto> getAllPosts();
     List<PostResponseDto> getAllPostsByStatus(PostStatus status);
+    List<PostResponseDto> getAllPostsApproved();
     List<PostResponseDto> getAllPostsByUserAndStatus(UUID userId, PostStatus status) throws ErrorException;
     List<PostResponseDto> getAllByUserId(UUID userId) throws ErrorException;
     List<PostResponseDto> getAllByCity(String city);
