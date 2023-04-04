@@ -39,4 +39,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostEntity> posts = new ArrayList<>();
 
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
 }

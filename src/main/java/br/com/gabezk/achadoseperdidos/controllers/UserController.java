@@ -41,21 +41,21 @@ public class UserController {
     }
 
     @GetMapping("/byId")
-    @Operation(summary = "Busca usuário por ID",
+    @Operation(summary = "Retorna um usuário pelo ID",
             description = "Retorna as informações de um usuário cadastrado no sistema, com base no seu ID.")
     public ResponseEntity<UserResponseDto> getUserById(@Parameter(description = "ID do usuário", required = true) @RequestHeader("Id") UUID id) throws ErrorException {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping("/byEmail")
-    @Operation(summary = "Busca usuário por e-mail",
+    @Operation(summary = "Retorna um usuário pelo e-mail",
             description = "Retorna as informações de um usuário cadastrado no sistema, com base no seu e-mail.")
     public ResponseEntity<UserResponseDto> getUserByEmail(@Parameter(description = "E-mail do usuário", required = true) @RequestHeader("Email") String email) throws ErrorException {
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     @GetMapping("/byPhone")
-    @Operation(summary = "Busca usuário por telefone",
+    @Operation(summary = "Retorna um usuário pelo telefone",
             description = "Retorna as informações de um usuário cadastrado no sistema, com base no seu número de telefone.")
     public ResponseEntity<UserResponseDto> getUserByPhone(@Parameter(description = "Telefone do usuário", required = true) @RequestHeader("Phone") String phone) throws ErrorException {
         return ResponseEntity.ok(userService.getUserByPhone(phone));

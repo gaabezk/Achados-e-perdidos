@@ -13,12 +13,10 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,UUID> {
-
     @Query("SELECT u FROM UserEntity u WHERE u.role = :role")
     List<UserEntity> findAllByRole(@Param("role") Role role);
     Optional<UserEntity> findByEmail(String email);
     Optional<UserEntity> findByPhone(String phone);
     boolean existsByEmail(String email);
     boolean existsByPhone(String phone);
-
 }
