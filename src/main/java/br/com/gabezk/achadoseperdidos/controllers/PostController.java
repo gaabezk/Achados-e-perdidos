@@ -9,6 +9,7 @@ import br.com.gabezk.achadoseperdidos.services.interfaces.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/post")
 @Validated
+@SecurityRequirement(name = "Bearer Authentication")
 public class PostController {
 
     @Autowired

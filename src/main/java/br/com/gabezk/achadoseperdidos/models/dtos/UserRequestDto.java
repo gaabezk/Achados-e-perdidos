@@ -15,15 +15,15 @@ import lombok.Setter;
 public class UserRequestDto {
 
     @NotBlank
-    public String firstName;
+    private String firstName;
     @NotBlank
-    public String lastName;
+    private String lastName;
     @NotBlank
     @Email
-    public String email;
+    private String email;
     @NotBlank
-    public String phone;
+    private String phone;
     @NotBlank
     @Password
-    public String password;
+    private String password;
 }

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public enum Role {
     @NotBlank
-    ROLE_USER,
+    USER,
     @NotBlank
-    ROLE_ADMIN
+    ADMIN
 }
