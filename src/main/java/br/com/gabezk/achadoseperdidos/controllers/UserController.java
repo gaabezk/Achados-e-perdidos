@@ -13,7 +13,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,28 +40,28 @@ public class UserController {
     @GetMapping("/allByRole")
     @Operation(summary = "Lista todos os usuários por perfil",
             description = "Retorna uma lista com todos os usuários cadastrados no sistema que possuem um perfil específico.")
-    public ResponseEntity<List<UserResponseDto>> getAllUsersByRole(@Parameter(description = "Perfil do usuário", required = true) @RequestHeader("Role") @Valid Role role) {
+    public ResponseEntity<List<UserResponseDto>> getAllUsersByRole(@Parameter(description = "Perfil do usuário", required = true) @RequestHeader("role") @Valid Role role) {
         return ResponseEntity.ok(userService.getAllUsersByRole(role));
     }
 
     @GetMapping("/byId")
     @Operation(summary = "Retorna um usuário pelo ID",
             description = "Retorna as informações de um usuário cadastrado no sistema, com base no seu ID.")
-    public ResponseEntity<UserResponseDto> getUserById(@Parameter(description = "ID do usuário", required = true) @RequestHeader("Id") UUID id) throws ErrorException {
+    public ResponseEntity<UserResponseDto> getUserById(@Parameter(description = "ID do usuário", required = true) @RequestHeader("id") UUID id) throws ErrorException {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping("/byEmail")
     @Operation(summary = "Retorna um usuário pelo e-mail",
             description = "Retorna as informações de um usuário cadastrado no sistema, com base no seu e-mail.")
-    public ResponseEntity<UserResponseDto> getUserByEmail(@Parameter(description = "E-mail do usuário", required = true) @RequestHeader("Email") String email) throws ErrorException {
+    public ResponseEntity<UserResponseDto> getUserByEmail(@Parameter(description = "E-mail do usuário", required = true) @RequestHeader("email") String email) throws ErrorException {
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     @GetMapping("/byPhone")
     @Operation(summary = "Retorna um usuário pelo telefone",
             description = "Retorna as informações de um usuário cadastrado no sistema, com base no seu número de telefone.")
-    public ResponseEntity<UserResponseDto> getUserByPhone(@Parameter(description = "Telefone do usuário", required = true) @RequestHeader("Phone") String phone) throws ErrorException {
+    public ResponseEntity<UserResponseDto> getUserByPhone(@Parameter(description = "Telefone do usuário", required = true) @RequestHeader("phone") String phone) throws ErrorException {
         return ResponseEntity.ok(userService.getUserByPhone(phone));
     }
 
@@ -76,14 +75,21 @@ public class UserController {
     @PutMapping
     @Operation(summary = "Atualiza informações do usuário",
             description = "Atualiza as informações de um usuário já cadastrado no sistema, a partir das informações fornecidas no corpo da requisição.")
-    public ResponseEntity<UserResponseDto> updateUser(@RequestBody @Valid UserUpdateDto updateDto, @Parameter(description = "ID do usuário", required = true) @RequestHeader("Id") UUID uuid) throws ErrorException {
+    public ResponseEntity<UserResponseDto> updateUser(@RequestBody @Valid UserUpdateDto updateDto, @Parameter(description = "ID do usuário", required = true) @RequestHeader("id") UUID uuid) throws ErrorException {
         return ResponseEntity.ok(userService.updateUser(uuid, updateDto));
+    }
+
+    @PutMapping("/byPass")
+    @Operation(summary = "Atualiza informações do usuário usando senha",
+            description = "Atualiza as informações de um usuário já cadastrado no sistema, a partir das informações fornecidas no corpo da requisição.")
+    public ResponseEntity<UserResponseDto> updateUserByPass(@RequestBody @Valid UserUpdateDto updateDto, @Parameter(description = "ID do usuário", required = true) @RequestHeader("id") UUID uuid, @Parameter(description = "Senha do usuario", required = true) @RequestHeader("password") String password) throws ErrorException {
+        return ResponseEntity.ok(userService.updateUserByPass(uuid, updateDto, password));
     }
 
     @PutMapping("/role")
     @Operation(summary = "Atualiza perfil do usuário",
             description = "Atualiza o perfil de um usuário já cadastrado no sistema, a partir do perfil informado no cabeçalho da requisição.")
-    public ResponseEntity<String> updateRole(@Parameter(description = "Perfil do usuário", required = true) @RequestHeader("Role") @Valid Role role, @Parameter(description = "ID do usuário", required = true) @RequestHeader("Id") UUID uuid) throws ErrorException {
+    public ResponseEntity<String> updateRole(@Parameter(description = "Perfil do usuário", required = true) @RequestHeader("role") @Valid Role role, @Parameter(description = "ID do usuário", required = true) @RequestHeader("id") UUID uuid) throws ErrorException {
         return ResponseEntity.ok(userService.updateRole(uuid, role));
     }
 
@@ -102,7 +108,7 @@ public class UserController {
             description = "Este endpoint permite excluir um usuário do sistema, informando o ID do usuário através do cabeçalho da solicitação.")
     @DeleteMapping
     public ResponseEntity<String> deleteUser(
-            @Parameter(description = "ID do usuário a ser excluído") @RequestHeader("Id") UUID uuid
+            @Parameter(description = "ID do usuário a ser excluído") @RequestHeader("id") UUID uuid
     ) throws ErrorException {
         return ResponseEntity.ok(userService.deleteUser(uuid));
     }
@@ -111,7 +117,7 @@ public class UserController {
     @Operation(summary = "Verifica se existe um usuário com o ID informado")
     public ResponseEntity<Boolean> existsById(
             @Parameter(description = "ID do usuário", required = true)
-            @RequestHeader("Id") UUID id) {
+            @RequestHeader("id") UUID id) {
         boolean exists = userService.existsById(id);
         return ResponseEntity.ok(exists);
     }
@@ -120,7 +126,7 @@ public class UserController {
     @Operation(summary = "Verifica se existe um usuário com o email informado")
     public ResponseEntity<Boolean> existsByEmail(
             @Parameter(description = "E-mail do usuário", required = true)
-            @RequestHeader("Email") String email) {
+            @RequestHeader("email") String email) {
         boolean exists = userService.existsByEmail(email);
         return ResponseEntity.ok(exists);
     }
@@ -129,7 +135,7 @@ public class UserController {
     @Operation(summary = "Verifica se existe um usuário com o telefone informado")
     public ResponseEntity<Boolean> existsByPhone(
             @Parameter(description = "Telefone do usuário", required = true)
-            @RequestHeader("Phone") String phone) {
+            @RequestHeader("phone") String phone) {
         boolean exists = userService.existsByPhone(phone);
         return ResponseEntity.ok(exists);
     }

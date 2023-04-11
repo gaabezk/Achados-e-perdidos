@@ -100,6 +100,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserResponseDto updateUserByPass(UUID id, UserUpdateDto userUpdate, String password) throws ErrorException {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new ErrorException("Usuário com id: " + id + " não existe!"));
+
+        if(!passwordEncoder.matches(password,user.getHashPassword())){
+            throw new ErrorException("Senhas nao batem");
+        }
+
+        if (!userUpdate.getEmail().equals(user.getEmail())) {
+            if(userRepository.existsByEmail(userUpdate.getEmail())){
+                throw new ErrorException("Usuário com email: " + userUpdate.getEmail() + " já existe!");
+            }
+        }
+        modelMapper.map(userUpdate, user);
+        userRepository.save(user);
+
+        return modelMapper.map(user, UserResponseDto.class);
+    }
+
+    @Override
     @Transactional
     public String updateRole(UUID id, Role role) throws ErrorException {
         var user = userRepository.findById(id)

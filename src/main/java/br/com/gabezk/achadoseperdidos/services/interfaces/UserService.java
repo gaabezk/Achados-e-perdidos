@@ -17,6 +17,7 @@ public interface UserService {
     UserResponseDto getUserByPhone(String phone) throws ErrorException;
     UserResponseDto createUser(UserRequestDto userRequest) throws ErrorException;
     UserResponseDto updateUser(UUID id, UserUpdateDto userUpdate) throws ErrorException;
+    UserResponseDto updateUserByPass(UUID id, UserUpdateDto userUpdate, String password) throws ErrorException;
     String updateRole(UUID id, Role role) throws ErrorException;
     String updatePassword(UUID id, String oldPass, String newPass) throws ErrorException;
     String deleteUser(UUID id) throws ErrorException;
