@@ -130,6 +130,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public String deletePostByUserId(UUID postId, UUID userId) throws ErrorException {
+        PostEntity post = postRepository.findById(postId)
+                .orElseThrow(() -> new ErrorException("Postagem com id: " + postId + " não existe!"));
+
+        if(!post.getUser().getId().equals(userId)){
+            throw new ErrorException("esse post nao pertence a esse usuario!");
+        }
+
+        try {
+            postRepository.delete(post);
+            return "Postagem deletada com sucesso!";
+        }catch (Exception ex){
+            throw new ErrorException(ex.getMessage());
+        }
+    }
+
+    @Override
     public String updateStatus(UUID id, PostStatus status) throws ErrorException {
         PostEntity post = postRepository.findById(id)
                 .orElseThrow(() -> new ErrorException("Postagem com id: " + id + " não existe!"));

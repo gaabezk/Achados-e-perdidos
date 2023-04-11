@@ -70,8 +70,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponseDto createUser(UserRequestDto userRequest) throws ErrorException {
 
-        if(existsByEmail(userRequest.email)) throw new ErrorException("Usuário com email: " + userRequest.getEmail() + " já existe!");
-        if(existsByPhone(userRequest.phone)) throw new ErrorException(String.format("Usuário com telefone: %s já existe!", userRequest.getPhone()));
+        if(existsByEmail(userRequest.getEmail())) throw new ErrorException("Usuário com email: " + userRequest.getEmail() + " já existe!");
+        if(existsByPhone(userRequest.getPhone())) throw new ErrorException(String.format("Usuário com telefone: %s já existe!", userRequest.getPhone()));
 
         var hashPassword = passwordEncoder.encode(userRequest.getPassword());
         userRequest.setPassword(hashPassword);
@@ -112,10 +112,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public String updatePassword(UUID id, String password) throws ErrorException {
+    public String updatePassword(UUID id, String oldPass, String newPass) throws ErrorException {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new ErrorException("Usuário com id: " + id + " não existe!"));
-        user.setHashPassword(passwordEncoder.encode(password));
+
+        if(!passwordEncoder.matches(oldPass,user.getHashPassword())){
+            throw new ErrorException("Senhas nao batem");
+        }
+
+
+        user.setHashPassword(passwordEncoder.encode(newPass));
         userRepository.save(user);
         return "Senha atualizada com sucesso!";
     }

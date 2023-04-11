@@ -20,5 +20,6 @@ public interface PostService {
     PostResponseDto createPost(UUID userId, PostRequestDto postRequestDto) throws ErrorException;
     PostResponseDto updatePost(UUID idPost, UUID idUser, PostUpdateDto postUpdateDto) throws ErrorException;
     String deletePost(UUID id) throws ErrorException;
+    String deletePostByUserId(UUID postId, UUID userId) throws ErrorException;
     String updateStatus(UUID id, PostStatus status) throws ErrorException;
 }
