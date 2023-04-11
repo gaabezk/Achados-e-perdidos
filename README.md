@@ -67,6 +67,10 @@ API para gerenciamento de usuários e posts do sistema Achados e Perdidos.
 
 A API utiliza autenticação e autorização via token JWT. Alguns endpoints são protegidos apenas para usuários autenticados e outros apenas para usuários com permissão específica.
 
+### Documentação
+
+A API utiliza o Swagger como documentação principal pela url: `/swagger-ui/index.html`
+
 
 
 ## Como Executar
