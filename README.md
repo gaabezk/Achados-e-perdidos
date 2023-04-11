@@ -57,10 +57,10 @@ API para gerenciamento de usuários e posts do sistema Achados e Perdidos.
 
 ### Autenticação
 
-| Endpoint       | Método HTTP | Descrição                                        | Autenticação |
-|----------------|-------------|--------------------------------------------------|--------------|
-| /auth/login    | POST        | Faz o login de um usuário e retorna um token JWT | Não          |
-| /auth/refresh  | POST        | Atualiza o token JWT de um usuário               | Sim          |
+| Endpoint              | Método HTTP | Descrição                                        |
+|-----------------------|-------------|--------------------------------------------------|
+| api/auth/authenticate | POST        | Faz o login de um usuário e retorna um token JWT |
+| api/auth/register     | POST        | Cria um novo usuário e retorna um token JWT      |
 
 
 ### Autorização
