@@ -23,7 +23,6 @@ public class SecurityConfiguration {
             "/api/post/allApproved",
             "/api/post/allByCity",
             "/api/post/byId",
-            "/api/post/allByUserAndStatus",
             // -- Swagger UI v3
             "/v3/api-docs/**",
             "v3/api-docs/**",
@@ -43,13 +42,13 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.GET, "/api/user/byId").hasAnyAuthority("USER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/post", "/api/user").hasAnyAuthority("USER", "ADMIN")
                 .requestMatchers(HttpMethod.POST,"/api/auth/register", "/api/auth/authenticate").permitAll()
-                .requestMatchers(HttpMethod.PUT, "/api/user", "/api/user/pass", "/api/post").hasAnyAuthority("USER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/user/pass", "/api/post").hasAnyAuthority("USER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/post/byUserId").hasAnyAuthority("USER", "ADMIN")
 
                 .requestMatchers(HttpMethod.GET, AUTH_WHITELIST).permitAll()
 
-                .requestMatchers(HttpMethod.GET, "/api/user", "/api/user/exists/phone", "/api/user/exists/id", "/api/user/exists/email", "/api/user/byPhone", "/api/user/byEmail", "/api/user/allByRoIe", "/api/post", "/api/post/allByUserId", "/api/post/allByStatus").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/user/role", "/api/post/status").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/user", "/api/user/exists/phone", "/api/user/exists/id", "/api/user/exists/email", "/api/user/byPhone", "/api/user/byEmail", "/api/user/allByRole", "/api/post", "/api/post/allByUserId", "/api/post/allByStatus","/api/post/allByUserAndStatus").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/user", "/api/user/role", "/api/post/status").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/user", "/api/post").hasAuthority("ADMIN")
 
 
