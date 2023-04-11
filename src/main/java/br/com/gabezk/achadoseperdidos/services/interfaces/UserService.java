@@ -18,7 +18,7 @@ public interface UserService {
     UserResponseDto createUser(UserRequestDto userRequest) throws ErrorException;
     UserResponseDto updateUser(UUID id, UserUpdateDto userUpdate) throws ErrorException;
     String updateRole(UUID id, Role role) throws ErrorException;
-    String updatePassword(UUID id, String password) throws ErrorException;
+    String updatePassword(UUID id, String oldPass, String newPass) throws ErrorException;
     String deleteUser(UUID id) throws ErrorException;
     boolean existsById(UUID id);
     boolean existsByEmail(String email);

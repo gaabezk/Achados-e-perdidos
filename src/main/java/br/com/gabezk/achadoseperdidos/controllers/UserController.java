@@ -13,6 +13,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,7 @@ import java.util.UUID;
 @RequestMapping("api/user")
 @Validated
 @SecurityRequirement(name = "Bearer Authentication")
+@EnableWebSecurity
 public class UserController {
 
     @Autowired
@@ -85,13 +88,14 @@ public class UserController {
     }
 
     @Operation(summary = "Atualiza a senha de um usuário",
-            description = "Este endpoint permite atualizar a senha de um usuário, informando o ID do usuário e a nova senha através dos cabeçalhos da solicitação.")
+            description = "Este endpoint permite atualizar a senha de um usuário, informando o ID do usuário e a senha antiga e nova senha através dos cabeçalhos da solicitação.")
     @PutMapping("/pass")
     public ResponseEntity<String> updatePassword(
-            @Parameter(description = "Nova senha do usuário") @RequestHeader("Password") String password,
-            @Parameter(description = "ID do usuário a ser atualizado") @RequestHeader("Id") UUID uuid
+            @Parameter(description = "Senha antiga do usuário") @RequestHeader("old_pass") String oldPass,
+            @Parameter(description = "Nova senha do usuário") @RequestHeader("new_pass") String newPass,
+            @Parameter(description = "ID do usuário") @RequestHeader("Id") UUID uuid
     ) throws ErrorException {
-        return ResponseEntity.ok(userService.updatePassword(uuid, password));
+        return ResponseEntity.ok(userService.updatePassword(uuid, oldPass, newPass));
     }
 
     @Operation(summary = "Exclui um usuário",

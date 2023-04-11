@@ -90,6 +90,12 @@ public class PostController {
         return ResponseEntity.ok(postService.deletePost(id));
     }
 
+    @DeleteMapping("/byUserId")
+    @Operation(summary = "Deletar post pela id do usuario", description = "Deleta um post pelo Id do usuario informado.")
+    public ResponseEntity<String> deletePostByUserId(@Parameter(description = "Id do post a ser deletado", required = true, in = ParameterIn.HEADER) @RequestHeader("post_id") UUID postId,  @Parameter(description = "id do usuário dono do post a ser deletado", required = true, in = ParameterIn.HEADER) @RequestHeader("user_id") UUID userId) throws ErrorException {
+        return ResponseEntity.ok(postService.deletePostByUserId(postId,userId));
+    }
+
     @PutMapping("/status")
     @Operation(summary = "Atualizar status do post", description = "Atualiza o status de um post pelo Id informado.")
     @Parameter(name = "Id", description = "Id do post a ter o status atualizado", required = true)
