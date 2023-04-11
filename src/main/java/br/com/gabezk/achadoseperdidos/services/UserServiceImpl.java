@@ -93,6 +93,13 @@ public class UserServiceImpl implements UserService {
                 throw new ErrorException("Usuário com email: " + userUpdate.getEmail() + " já existe!");
             }
         }
+
+        if (!userUpdate.getPhone().equals(user.getPhone())) {
+            if(userRepository.existsByPhone(userUpdate.getPhone())){
+                throw new ErrorException("Usuário com telefone: " + userUpdate.getPhone() + " já existe!");
+            }
+        }
+
         modelMapper.map(userUpdate, user);
         userRepository.save(user);
 
@@ -113,6 +120,13 @@ public class UserServiceImpl implements UserService {
                 throw new ErrorException("Usuário com email: " + userUpdate.getEmail() + " já existe!");
             }
         }
+
+        if (!userUpdate.getPhone().equals(user.getPhone())) {
+            if(userRepository.existsByPhone(userUpdate.getPhone())){
+                throw new ErrorException("Usuário com telefone: " + userUpdate.getPhone() + " já existe!");
+            }
+        }
+
         modelMapper.map(userUpdate, user);
         userRepository.save(user);
 
