@@ -19,44 +19,52 @@ API para gerenciamento de usuários e posts do sistema Achados e Perdidos.
 
 ### Usuários
 
-| Método | Endpoint | Descrição | Autenticação |
-| --- | --- | --- | --- |
-| POST | /api/user | Cria um novo usuário | Não |
-| GET | /api/user | Lista todos os usuários | Sim |
-| GET | /api/user/allByRole | Lista todos os usuários por perfil | Não |
-| GET | /api/byId | Retorna um usuário pelo ID | Não |
-| GET | /api/user/byEmail | Retorna um usuário pelo e-mail | Não |
-| GET | /api/user/byPhone | Retorna um usuário pelo telefone | Não |
-| GET | /api/user/exists/id | Procura um usuário pelo ID e retorna um boleano | Não |
-| GET | /api/user/exists/email | Procura um usuário pelo E-MAIL e retorna um boleano | Não |
-| GET | /api/user/exists/phone | Procura um usuário pelo TELEFONE e retorna um boleano | Não |
-| PUT | /api/user | Atualiza informações do usuário | Não |
-| PUT | /api/user/role | Atualiza perfil do usuário | Não |
-| PUT | /api/user/pass | Atualiza a senha de um usuário | Não |
-| DELETE | /api/user | Exclui um usuário | Não |
-
-
-<!-- ### Autenticação
-
-| Método | Endpoint | Descrição | Autenticação |
-| --- | --- | --- | --- |
-| POST | /auth/login | Faz o login de um usuário e retorna um token JWT | Não |
-| POST | /auth/refresh | Atualiza o token JWT de um usuário | Sim | -->
+| Endpoint              | Método HTTP | Descrição                                    | Permissão mínima |
+|-----------------------|-------------|----------------------------------------------|------------------|
+| /api/user	         | GET	       | Lista todos os usuários                      | Administrador|
+| /api/user/allByRole   | GET	       | Lista todos os usuários por perfil           | Administrador|
+| /api/user/byId	     | GET         | Retorna um usuário pelo ID	                  | Administrador    |
+| /api/user/byEmail     | GET	       | Retorna um usuário pelo e-mail	              | Administrador    |
+| /api/user/byPhone     | GET	       | Retorna um usuário pelo telefone             | Administrador    |
+| /api/user	         | POST	       | Cria um novo usuário                         | Público          |
+| /api/user	         | PUT	       | Atualiza informações do usuário              | Administrador    |
+| /api/user/byPass	     | PUT	       | Atualiza informações do usuário usando senha | Usuário          |
+| /api/user/role	     | PUT	       | Atualiza perfil do usuário	                  | Administrador    |
+| /api/user/pass	     | PUT	       | Atualiza a senha de um usuário	              | Usuário          |
+| /api/user	         | DELETE	   | Exclui um usuário                            | Administrador    |
 
 
 ### Posts
 
-| Método | Endpoint | Descrição | Autenticação |
-| --- | --- | --- | --- |
-| POST | /posts | Cria um novo post | Sim |
-| GET | /posts | Retorna todos os posts | Sim |
-| GET | /posts/{id} | Retorna um post pelo ID | Sim |
-| PUT | /posts/{id} | Atualiza um post existente pelo ID | Sim |
-| DELETE | /posts/{id} | Deleta um post pelo ID | Sim |
+| Endpoint                     | Método HTTP | Descrição                                                                                       | Permissão mínima |
+|------------------------------|-------------|-------------------------------------------------------------------------------------------------|------------------|
+| /api/post                    | GET         | Recupera todos os posts existentes                                                              | Administrador    |
+| /api/post/allByStatus        | GET         | Recupera todos os posts existentes com um status específico                                     | Administrador    |
+| /api/post/allApproved        | GET         | Recupera todos os posts aprovados existentes                                                    | Público          |
+| /api/post/allByUserAndStatus | GET         | Recupera todos os posts existentes criados por um usuário específico e com um status específico | Administrador    |
+| /api/post/allByUserId        | GET         | Recupera todos os posts existentes criados por um usuário específico                            | Administrador    |
+| /api/post/allByCity          | GET         | Recupera todos os posts existentes criados em uma cidade específica                             | Público          |
+| /api/post/byId               | GET         | Recupera um post com um ID específico                                                           | Público          |
+| /api/post                    | POST        | Cria um novo post com os dados fornecidos                                                       | Autenticado      |
+| /api/post                    | PUT         | Atualiza um post existente pelo Id do post e Id do usuário autenticado                          | Autenticado      |
+| /api/post                    | DELETE      | Deleta um post pelo Id informado                                                                | Administrador    |
+| /api/post/byUserId           | DELETE      | Deleta um post pelo Id do usuario informado                                                     | Autenticado      |
+| /api/post/status             | PUT         | Atualiza o status de um post pelo Id informado                                                  | Administrador    |
 
-## Autenticação e Autorização
+
+### Autenticação
+
+| Endpoint       | Método HTTP | Descrição                                        | Autenticação |
+|----------------|-------------|--------------------------------------------------|--------------|
+| /auth/login    | POST        | Faz o login de um usuário e retorna um token JWT | Não          |
+| /auth/refresh  | POST        | Atualiza o token JWT de um usuário               | Sim          |
+
+
+### Autorização
 
 A API utiliza autenticação e autorização via token JWT. Alguns endpoints são protegidos apenas para usuários autenticados e outros apenas para usuários com permissão específica.
+
+
 
 ## Como Executar
 
