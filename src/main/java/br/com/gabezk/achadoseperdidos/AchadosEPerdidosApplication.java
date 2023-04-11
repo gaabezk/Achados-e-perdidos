@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition(
         info = @Info(
                 title = "Achados&Perdidos - Api",
-                version = "${api.version}",
+                version = "1.0",
                 description = "SpringBoot Web Api",
                 contact = @Contact(
                         name = "Gabriel Fernandes",

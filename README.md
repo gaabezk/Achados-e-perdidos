@@ -5,10 +5,10 @@ API para gerenciamento de usuários e posts do sistema Achados e Perdidos.
 ## Tecnologias Utilizadas
 
 - Java 17
-- Spring Boot 3.0.2
+- Spring Boot 3.0.5
 - Spring Data JPA
 - Spring Validation
-- Spring Security
+- Spring Security 6
 - JWT
 - MySQL
 - Lombok
@@ -71,10 +71,19 @@ A API utiliza autenticação e autorização via token JWT. Alguns endpoints sã
 
 ## Como Executar
 
-1. Clone o repositório: `git clone https://github.com/seu-usuario/seu-fork.git`
-2. Entre na pasta do projeto: `cd Achados-e-Perdidos`
-3. Configure as propriedades do banco de dados no arquivo `application.properties`
-4. Execute a aplicação: `./mvnw spring-boot:run`
+1. Necessario ter um banco MySQL.
+2. Clone o repositório: `git clone https://github.com/gaabezk/Achados-e-perdidos.git`
+3. Entre na pasta do projeto: `cd Achados-e-Perdidos`
+4. Crie o arquivo `secrets.yml` na pasta resources e informe as propriedas: 
+
+```yaml
+config:
+   jwtSecret: "chave-secreta"
+   dbUrl: "jdbc:mysql://localhost:porta/seu-banco"
+   dbUser: "usuario-banco"
+   dbPassword: "senha-banco"
+   ```
+5. Execute a aplicação: `./mvnw spring-boot:run`
 
 ## Licença
 
