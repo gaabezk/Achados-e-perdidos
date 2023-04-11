@@ -71,7 +71,7 @@ A API utiliza autenticação e autorização via token JWT. Alguns endpoints sã
 
 ## Como Executar
 
-1. Necessario ter um banco MySQL.
+1. Necessario ter um banco MySQL e Java 17.
 2. Clone o repositório: `git clone https://github.com/gaabezk/Achados-e-perdidos.git`
 3. Entre na pasta do projeto: `cd Achados-e-Perdidos`
 4. Crie o arquivo `secrets.yml` na pasta resources e informe as propriedas: 
