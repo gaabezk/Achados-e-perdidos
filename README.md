@@ -19,19 +19,22 @@ API para gerenciamento de usuários e posts do sistema Achados e Perdidos.
 
 ### Usuários
 
-| Endpoint              | Método HTTP | Descrição                                    | Permissão mínima |
-|-----------------------|-------------|----------------------------------------------|------------------|
-| /api/user	         | GET	       | Lista todos os usuários                      | Administrador|
-| /api/user/allByRole   | GET	       | Lista todos os usuários por perfil           | Administrador|
-| /api/user/byId	     | GET         | Retorna um usuário pelo ID	                  | Administrador    |
-| /api/user/byEmail     | GET	       | Retorna um usuário pelo e-mail	              | Administrador    |
-| /api/user/byPhone     | GET	       | Retorna um usuário pelo telefone             | Administrador    |
-| /api/user	         | POST	       | Cria um novo usuário                         | Público          |
-| /api/user	         | PUT	       | Atualiza informações do usuário              | Administrador    |
-| /api/user/byPass	     | PUT	       | Atualiza informações do usuário usando senha | Usuário          |
-| /api/user/role	     | PUT	       | Atualiza perfil do usuário	                  | Administrador    |
-| /api/user/pass	     | PUT	       | Atualiza a senha de um usuário	              | Usuário          |
-| /api/user	         | DELETE	   | Exclui um usuário                            | Administrador    |
+| Endpoint               | Método HTTP  | Descrição                                    | Permissão mínima |
+|------------------------|--------------|----------------------------------------------|------------------|
+| /api/user	          | GET	         | Lista todos os usuários                      | Administrador    |
+| /api/user/allByRole    | GET	         | Lista todos os usuários por perfil           | Administrador    |
+| /api/user/byId	      | GET          | Retorna um usuário pelo ID                   | Administrador    |
+| /api/user/byEmail      | GET	         | Retorna um usuário pelo e-mail               | Administrador    |
+| /api/user/byPhone      | GET	         | Retorna um usuário pelo telefone             | Administrador    |
+| /api/user/exists/id    | GET	         | Verifica se existe um usuário pelo id        | Administrador    |
+| /api/user/exists/email | GET	         | Verifica se existe um usuário pelo email     | Administrador    |
+| /api/user/exists/phone | GET	         | Verifica se existe um usuário pelo telefone  | Administrador    |
+| /api/user	          | POST	     | Cria um novo usuário                         | Público          |
+| /api/user	          | PUT	         | Atualiza informações do usuário              | Administrador    |
+| /api/user/byPass	      | PUT	         | Atualiza informações do usuário usando senha | Autenticado      |
+| /api/user/role	      | PUT	         | Atualiza perfil do usuário                   | Administrador    |
+| /api/user/pass	      | PUT	         | Atualiza a senha de um usuário               | Autenticado      |
+| /api/user	          | DELETE	     | Exclui um usuário                            | Administrador    |
 
 
 ### Posts
