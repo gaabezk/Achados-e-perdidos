@@ -1,10 +1,12 @@
 package br.com.gabezk.achadoseperdidos.config;
 
+import br.com.gabezk.achadoseperdidos.models.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,12 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-  private static final String SECRET_KEY = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
+  @Value("${jwt.secret}")
+  private String SECRET_KEY;
+
+  @Value("${jwt.expiration-minutes}")
+  private Long EXPIRATION_TIME_IN_MINUTES;
+
 
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
@@ -28,22 +35,20 @@ public class JwtService {
     return claimsResolver.apply(claims);
   }
 
-  public String generateToken(UserDetails userDetails) {
-    return generateToken(new HashMap<>(), userDetails);
-  }
-
-  public String generateToken(
-      Map<String, Object> extraClaims,
-      UserDetails userDetails
-  ) {
+  public String generateToken(UserEntity userDetails) {
     return Jwts
-        .builder()
-        .setClaims(extraClaims)
-        .setSubject(userDetails.getUsername())
-        .setIssuedAt(new Date(System.currentTimeMillis()))
-        .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-        .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-        .compact();
+            .builder()
+            .claim("user_id", userDetails.getId().toString())
+            .claim("user_fullname", (userDetails.getFirstName()+" "+userDetails.getLastName()))
+            .claim("user_email", userDetails.getEmail())
+            .claim("user_phone", userDetails.getPhone())
+            .claim("user_role", userDetails.getRole())
+            .claim("authorities", userDetails.getAuthorities())
+            .setSubject(userDetails.getUsername())
+            .setIssuedAt(new Date(System.currentTimeMillis()))
+            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_IN_MINUTES * 60000))
+            .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+            .compact();
   }
 
   public boolean isTokenValid(String token, UserDetails userDetails) {

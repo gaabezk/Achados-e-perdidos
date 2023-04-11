@@ -1,12 +1,19 @@
 server:
   port: 9080
 spring:
+  config:
+    import: classpath:secrets.yml
   datasource:
-    url: jdbc:mysql://localhost:3306/achadoseperdidosjava
-    username: root
-    password: 1234
+    url: ${config.dbUrl}
+    username: ${config.dbUser}
+    password: ${config.dbPassword}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
+    show-sql: true
+    database: mysql
+jwt:
+  secret: ${config.jwtSecret}
+  expiration-minutes: 15
