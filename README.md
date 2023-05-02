@@ -13,7 +13,7 @@ API para gerenciamento de usuários e posts do sistema Achados e Perdidos.
 - MySQL
 - Lombok
 - ModelMapper
-- SpringDoc
+- SpringDoc 
 
 ## Endpoints
 
